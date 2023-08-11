@@ -7,17 +7,29 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 import os
 import sys
-from selenium.webdriver.support.ui import WebDriverWait
+import time
+import yaml
 
 
 ## testing
-os.environ['WDM_SSL_VERIFY']='0'
+# os.environ['WDM_SSL_VERIFY']='0'
+
+
+yml_config = """user: jweeren97@gmail.com
+pwd: Graham01!
+"""
+
+with open("login_details.yaml", "r") as f:
+    user_data = yaml.load(f, Loader=yaml.FullLoader)
 
 
 ## log in variables
 login_url = 'https://foreupsoftware.com/index.php/booking/index/19347#/login'
-user = 'jweeren97@gmail.com'
-pwd = 'Graham01!'
+user = user_data['user']
+pwd = user_data['pwd']
+
+print(user, pwd)
+# sys.exit()
 
 
 ## class/id/selecotr of user name and passowrd
@@ -49,14 +61,17 @@ def startBot (user, pwd, url):
      
     # opening the website in chrome.
     driver.get(url)
-     
-    user_test = driver.find_element(By.NAME, "username").send_keys(user)
+    
+    driver.find_element(By.NAME, "username").send_keys(user)
 
     # find the password by inspecting on password input
     driver.find_element(By.NAME, "password").send_keys(pwd)
      
+    time.sleep(2)
     # click on submit
     driver.find_element(By.NAME, "login_button").click()
+
+    time.sleep(10)
 
 print('hi')
 # Call the function
