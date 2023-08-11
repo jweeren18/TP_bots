@@ -1,0 +1,19 @@
+<form method="POST" action="">
+  {{form.hidden_tag()}}
+    <!-- <label for="email">Email:</label><br>
+    <input type="text" id="email" name="email" input="email" ><br>
+    <label for="password">Password:</label><br>
+    <input type="text" id="password" name="password" input="password"><br><br>
+    <input type="submit" value="Submit"> -->
+    <div class="form-group">
+      {{ form.email.label()}}
+      {{ form.email}}
+    </di>
+    <div class="form-group">
+      {{ form.password.label()}}
+      {{ form.password}}
+    </di>
+    <div class="form-group">
+      {{ form.submit(class="btn btn-outline-info")}}
+    </di>
+</form>  

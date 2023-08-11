@@ -10,10 +10,23 @@ import sys
 import time
 import yaml
 from datetime import datetime
+from flask import *
+from forms import LoginForm
+app=Flask(__name__,template_folder='template')
 
+app.config['SECRET_KEY']='ac54fdb1fe101e5b3590000824ec1e65'
+
+@app.route("/", methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        print(form.email.data)
+        setUserInfo(form.email.data, form.password.data)
+        startBot()
+    return render_template('login_form.html',title='Login', form=form)
 
 ## testing
-# os.environ['WDM_SSL_VERIFY']='0'
+os.environ['WDM_SSL_VERIFY']='0'
 
 ## log in variables
 with open("login_details.yaml", "r") as f:
@@ -55,12 +68,9 @@ def startBot ():
 
     time.sleep(300)
 
-'''
-## Ask for user info
-def user_info():
 
-    username = input("Enter username: ")
-    password = input("Enter password: ")
+## Ask for user info
+def setUserInfo(username, password):
 
     now = datetime.now()
 
@@ -73,7 +83,6 @@ def user_info():
     with open("login_details.yaml", 'w') as yamlfile:
         data = yaml.dump(user_info, yamlfile)
         print("Write successful")
-'''
 
 
 ## find & book a tee time
@@ -83,11 +92,12 @@ def find_and_book():
 
 
 
-################################ run funcs #############################################
+
+################################ run functions #############################################
 
 # user_info()
-startBot()
-find_and_book()
+# startBot()
+# find_and_book()
 
 
 
