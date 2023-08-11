@@ -14,16 +14,11 @@ import yaml
 ## testing
 # os.environ['WDM_SSL_VERIFY']='0'
 
-
-yml_config = """user: jweeren97@gmail.com
-pwd: Graham01!
-"""
-
+## log in variables
 with open("login_details.yaml", "r") as f:
     user_data = yaml.load(f, Loader=yaml.FullLoader)
 
 
-## log in variables
 login_url = 'https://foreupsoftware.com/index.php/booking/index/19347#/login'
 user = user_data['user']
 pwd = user_data['pwd']
