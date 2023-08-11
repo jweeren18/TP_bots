@@ -50,31 +50,13 @@ def startBot (user, pwd, url):
     # opening the website in chrome.
     driver.get(url)
      
-    user_test = driver.find_element(By.NAME, "username") #.send_keys(user)
-    print(user_test)
-    # sys.exit()
+    user_test = driver.find_element(By.NAME, "username").send_keys(user)
 
     # find the password by inspecting on password input
     driver.find_element(By.NAME, "password").send_keys(pwd)
      
     # click on submit
     driver.find_element(By.NAME, "login_button").click()
-
-
-    WebDriverWait(driver=driver, timeout=10).until(
-    lambda x: x.execute_script("return document.readyState === 'complete'")
-    )
-    error_message = "Incorrect username or password."
-    # get the errors (if there are)
-    errors = driver.find_elements("css selector", ".flash-error")
-    # print the errors optionally
-    # for e in errors:
-    #     print(e.text)
-    # if we find that error message within errors, then login is failed
-    if any(error_message in e.text for e in errors):
-        print("[!] Login failed")
-    else:
-        print("[+] Login successful")
 
 print('hi')
 # Call the function
