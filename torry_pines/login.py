@@ -42,11 +42,18 @@ def startBot ():
     # find the password by inspecting on password input
     driver.find_element(By.NAME, "password").send_keys(pwd)
     
-    time.sleep(2)
+    time.sleep(1)
     # click on submit
     driver.find_element(By.NAME, "login_button").click()
 
-    time.sleep(10)
+    element =  driver.find_element(By.XPATH, "//a[@href='#/account/reservations']")
+    print(element)
+    # driver.find_element(By.ID, "reservations-tab").click()
+    # <a id="reservations-tab" href="#/account/reservations">
+
+    # driver.find_element(By.ID, "profile-main").click()
+
+    time.sleep(300)
 
 '''
 ## Ask for user info
@@ -69,6 +76,10 @@ def user_info():
 '''
 
 
+## find & book a tee time
+def find_and_book():
+    print('hi')
+
 
 
 
@@ -76,6 +87,7 @@ def user_info():
 
 # user_info()
 startBot()
+find_and_book()
 
 
 
