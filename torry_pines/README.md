@@ -1,61 +1,61 @@
-# torrey_pines_bot
+# Template: Python - Browser automation with Playwright
 
-<a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
-    <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
-</a>
+This template leverages the new [Python framework](https://github.com/robocorp/robocorp), the [libraries](https://github.com/robocorp/robocorp/blob/master/docs/README.md#python-libraries) from to same project as well.
 
-book tee times when available at torrey pines golf course
+The template provides you with the basic structure of a Python project: logging out of the box and controlling your tasks without fiddling with the base Python stuff. The environment contains the most used libraries, so you do not have to start thinking about those right away. 
+With `robocorp-browser`, the browser automation uses Playwright without any extra steps. 
 
-## Project Organization
+👉 Other templates are available as well via our tooling and on our [Portal](https://robocorp.com/portal/tag/template)
 
-```
-├── LICENSE            <- Open-source license if one is chosen
-├── Makefile           <- Makefile with convenience commands like `make data` or `make train`
-├── README.md          <- The top-level README for developers using this project.
-├── data
-│   ├── external       <- Data from third party sources.
-│   ├── interim        <- Intermediate data that has been transformed.
-│   ├── processed      <- The final, canonical data sets for modeling.
-│   └── raw            <- The original, immutable data dump.
-│
-├── docs               <- A default mkdocs project; see www.mkdocs.org for details
-│
-├── models             <- Trained and serialized models, model predictions, or model summaries
-│
-├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-│                         the creator's initials, and a short `-` delimited description, e.g.
-│                         `1.0-jqp-initial-data-exploration`.
-│
-├── pyproject.toml     <- Project configuration file with package metadata for 
-│                         v1 and configuration for tools like black
-│
-├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-│
-├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-│   └── figures        <- Generated graphics and figures to be used in reporting
-│
-├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-│                         generated with `pip freeze > requirements.txt`
-│
-├── setup.cfg          <- Configuration file for flake8
-│
-└── v1   <- Source code for use in this project.
-    │
-    ├── __init__.py             <- Makes v1 a Python module
-    │
-    ├── config.py               <- Store useful variables and configuration
-    │
-    ├── dataset.py              <- Scripts to download or generate data
-    │
-    ├── features.py             <- Code to create features for modeling
-    │
-    ├── modeling                
-    │   ├── __init__.py 
-    │   ├── predict.py          <- Code to run model inference with trained models          
-    │   └── train.py            <- Code to train models
-    │
-    └── plots.py                <- Code to create visualizations
-```
+## Running
 
---------
+#### VS Code
+1. Get [Robocorp Code](https://robocorp.com/docs/developer-tools/visual-studio-code/extension-features) -extension for VS Code.
+1. You'll get an easy-to-use side panel and powerful command-palette commands for running, debugging, code completion, docs, etc.
 
+#### Command line
+
+1. [Get RCC](https://github.com/robocorp/rcc?tab=readme-ov-file#getting-started)
+1. Use the command: `rcc run`
+
+## Results
+
+🚀 After running the bot, check out the `log.html` under the `output` -folder.
+
+## Dependencies
+
+We strongly recommend getting familiar with adding your dependencies in [conda.yaml](conda.yaml) to control your Python dependencies and the whole Python environment for your automation.
+
+<details>
+  <summary>🙋‍♂️ "Why not just pip install...?"</summary>
+
+Think of [conda.yaml](conda.yaml) as an equivalent of the requirements.txt, but much better. 👩‍💻 With `conda.yaml`, you are not just controlling your PyPI dependencies; you control the complete Python environment, which makes things repeatable and easy.
+
+👉 You will probably need to run your code on another machine quite soon, so by using `conda.yaml`:
+- You can avoid `Works on my machine` -cases
+- You do not need to manage Python installations on all the machines
+- You can control exactly which version of Python your automation will run on 
+  - You'll also control the pip version to avoid dep. resolution changes
+- No need for venv, pyenv, ... tooling and knowledge sharing inside your team.
+- Define dependencies in conda.yaml, let our tooling do the heavy lifting.
+- You get all the content of [conda-forge](https://prefix.dev/channels/conda-forge) without any extra tooling
+
+> Dive deeper with [these](https://github.com/robocorp/rcc/blob/master/docs/recipes.md#what-is-in-condayaml) resources.
+
+</details>
+<br/>
+
+> The full power of [rpaframework](https://robocorp.com/docs/python/rpa-framework) -libraries is also available on Python as a backup while we implement the new Python libraries.
+
+## What now?
+
+🚀 Now, go get'em
+
+Start writing Python and remember that the AI/LLM's out there are getting really good and creating Python code specifically.
+
+👉 Try out [Robocorp ReMark 💬](https://chat.robocorp.com)
+
+For more information, do not forget to check out the following:
+- [Robocorp Documentation -site](https://robocorp.com/docs)
+- [Portal for more examples](https://robocorp.com/portal)
+- Follow our main [robocorp -repository](https://github.com/robocorp/robocorp) as it is the main location where we developed the libraries and the framework.

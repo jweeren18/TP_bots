@@ -1,2 +1,5 @@
 pip
 python-dotenv
+robocorp
+selenium
+openpyxl
