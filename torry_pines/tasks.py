@@ -3,9 +3,12 @@ from pathlib import Path
 import openpyxl
 
 import requests
-from robocorp import browser
+from robocorp import browser, vault
 from robocorp.tasks import task
 from RPA.Excel.Files import Files as Excel
+
+## additional
+from datetime import datetime, timedelta
 
 FILE_NAME = "challenge.xlsx"
 EXCEL_URL = f"https://rpachallenge.com/assets/downloadFiles/{FILE_NAME}"
@@ -26,61 +29,60 @@ def solve_challenge():
         headless=False, #True
     )
     try:
+        """
+        Parameters:
+        user_info - login information
+        input_date - range of days looking to book
+        course_name - 'south' or 'north'
+        """
 
-        ## get login info
-        wb = openpyxl.load_workbook('sample_login_info.xlsx')
-        # Select the active sheet or specify the sheet by name
-        sheet = wb.active
-        header = [cell.value for cell in sheet[1]]
-        
-        filtered_data = []
-        for row in sheet.iter_rows(min_row=2, values_only=True):  # Start from the second row
-            row_dict = {header[i]: row[i] for i in range(len(header))}
-        
-            ## need better login access pre user level
-            if row_dict['First Name'] == 'Jake' and row_dict['Last Name'] == 'Weeren':
-                filtered_data.append(row_dict)
+        user_info = vault.get_secret('TorreyLoginPersonal')
+        print(user_info)
 
-        if len(filtered_data) != 1:
-            raise ValueError("The length of the collection must be 1.")
-        else:
-            print("Single Records Found!")
+        #### date range
+        ## get todays date, with in the week or beyond the week
 
-        user_info = filtered_data[0]
-
+        #### login
         page = browser.goto("https://foreupsoftware.com/index.php/booking/19347#/login")
         tp_login(user_info, page=page)
         print('Logged In')
-        element = page.locator("css=div.account-passes")
-        browser.screenshot(element)
+
+        #### get to schedule
+        # browser.wait_for_page_to_load()        
+        page.click('id=reservations-tab')
+        page.click("xpath=//a[@class='btn btn-primary' and text()='Reserve a time now.']")
+
+        ## options here for navigation
+        ## residents, date range, course_name
+        input_date = datetime(2025, 6, 5).date()
+        course_name = 'south'.lower()
+
+        start_of_range = datetime.today().date()
+        end_of_range = start_of_range + timedelta(days=7)
+
+        ## drop down course select
+        page.click("id=schedule_select")
+        # if course_name == 'south':
+        #     page.click("xpath=//option[@value='1487']")
+        # elif course_name == 'north':
+        #     page.click("xpath=//option[@value='1487']")
+
+        # if input_date < end_of_range:
+        #     print("0-7")
+        #     page.click("xpath=//a[@class='btn btn-primary' and text()='Reserve a time now.']")
+        # elif input_date > end_of_range:
+        #     print("7+")
+        #     page.click("xpath=//a[@class='btn btn-primary' and text()='Reserve a time now.']")
+
+        
+        browser.screenshot()
 
         # page.click("button:text('Start')")
 
     finally:
         # A place for teardown and cleanups. (Playwright handles browser closing)
         print("Automation finished!")
-
-
-def download_file(url: str, *, target_dir: Path, target_filename: str) -> Path:
-    """
-    Downloads a file from the given URL into a custom folder & name.
-
-    Args:
-        url: The target URL from which we'll download the file.
-        target_dir: The destination directory in which we'll place the file.
-        target_filename: The local file name inside which the content gets saved.
-
-    Returns:
-        Path: A Path object pointing to the downloaded file.
-    """
-    # Obtain the content of the file hosted online.
-    response = requests.get(url)
-    response.raise_for_status()  # this will raise an exception if the request fails
-    # Write the content of the request response to the target file.
-    target_dir.mkdir(exist_ok=True)
-    local_file = target_dir / target_filename
-    local_file.write_bytes(response.content)
-    return local_file
+        # page.close_browser()
 
 
 def tp_login(row: dict, *, page: browser.Page):
