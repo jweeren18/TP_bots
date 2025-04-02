@@ -98,8 +98,11 @@ def tp_login(row: dict, *, page: browser.Page):
         "password": "Password", #form_field_password
     }
 
+    print('HERE!', row['User Name'])
     for field, key in field_data_map.items():
-        page.fill(f"//input[@name='{field}']", str(row[key]))
+        print(field, key)
+        page.wait_for_selector("//input[@name='username']", timeout=30000)
+        page.fill(f"//input[@name='{field}']", row[key])
     
     # page.click("input:text('login_button')")
     page.click("input[type='submit'][name='login_button']")
